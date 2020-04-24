@@ -1,18 +1,9 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { Component } from "react";
 
-const mapStateToProps = state => {
-  return { messages: state.messages };
-};
-
-const ConnectedList = ({ messages }) => (
-  <ul>
-    {messages.map(el => (
-      <li key={el.id}>{el.message}</li>
-    ))}
-  </ul>
-);
-
-const MessageList = connect(mapStateToProps)(ConnectedList);
-
+class MessageList extends Component{
+  render() {
+    const { messagesList } = this.props;
+    return <div><h1>Messages</h1><ul>{messagesList.map(el => <li key={el.id}>{el.message}</li>)}</ul></div>;
+  }
+}
 export default MessageList;

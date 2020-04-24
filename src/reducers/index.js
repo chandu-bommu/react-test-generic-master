@@ -1,13 +1,13 @@
-import { GET_MESSAGES } from "../constants/action-types";
+import { GET_MESSAGES_FULFILLED } from "../constants/action-types";
 
 const initialState = {
   messages: []
 };
 
 function rootReducer(state = initialState, action) {
-  if (action.type === GET_MESSAGES) {
+  if (action.type === GET_MESSAGES_FULFILLED) {
     return Object.assign({}, state, {
-        messages: state.messages.concat(action.payload)
+      messages: action.payload
     });
   }
   return state;

@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-import getChatLog from './actions/service';
-
-import './App.css';
+import actions from "./actions";
+import MessageList from "./MessageList";
 
 class App extends Component {
 
@@ -17,22 +14,26 @@ class App extends Component {
 
   render() {
     const { messages } = this.state;
-    return <ul>{messages.map(el => <li key={el.id}>{el.title}</li>)}</ul>;
+    return (<MessageList messagesList={messages}/>);
+  }
+
+  componentDidMount() {
+    this.props.loadMessages();
   }
 }
 
 const mapStateToProps = state => {
-  return {};
+  return { messages: state.messages };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({ getChatLog }, dispatch);
+// const mapDispatchToProps = dispatch => bindActionCreators({ getMessageList }, dispatch);
+function mapDispatchToProps(dispatch) {
+  return {
+    loadMessages: () =>
+      dispatch(actions.getMessageList())
+  };
+}
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     loadAPIServiceRejections: (startDate, endDate, t, resellerId) =>
-//       dispatch(actions.loadAPIServiceRejections(startDate, endDate, t, resellerId))
-//   };
-// }
 
 export default connect(
   mapStateToProps,
